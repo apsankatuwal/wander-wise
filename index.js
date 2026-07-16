@@ -5,27 +5,19 @@ import connectDB from './config/database.js';
 
 // dotenv.config(); => old approach to load .env variables
 
+import HANDLERS from './handlers/index.js';
+import errorMiddleware from './middlewares/error.js';
+
 const app = express();
 const port = process.env.PORT;
 
 
-// old approach
-function helloWorldold(req, res){
-    res.send('hello world1');
-}
-
-// name function 
-// new approach
-const helloWorldnew = (req, res) => {
-    res.send('hello world!');
-}
-
-app.get('/', (req, res) => {
-    res.send('hello again world!');
-});
 
 connectDB();
+app.use(express.json());
+app.use("/", HANDLERS);
+app.use(errorMiddleware);
 
 app.listen(port, () => {
-    console.log(`Example app listening at https://locolhost:${port}`);
-})
+    console.log(`Example app listening at https://localhost:${port}`);
+});
