@@ -1,4 +1,4 @@
-import { schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
 
 
 const Baggageschema = new Schema(
@@ -14,12 +14,12 @@ const Baggageschema = new Schema(
             default:false,
         },
         user: {
-            type: schema.Types.Objectid,
+            type: Schema.Types.ObjectId,
             ref: "User",
             require:true,
         },
         trip: {
-            type: schema,Types,Objectid,
+            type: Schema.Types.ObjectId,
             ref: "Trip",
             require: true,
         }

@@ -64,3 +64,60 @@ export const createTripValidator = [
     .withMessage("Expense amount must be a number"),
   validate,
 ];
+export const updateTripValidator = [
+  body("title")
+    .optional()
+    .trim()
+    .escape(),
+  body("startDate")
+    .optional()
+    .trim()
+    .escape()
+    .isDate()
+    .withMessage("Start date must be a date"),
+  body("endDate")
+    .optional()
+    .trim()
+    .escape()
+    .isDate()
+    .withMessage("End date must be a date")
+    .custom((value, { req }) => {
+      if (value < req.body.startDate) {
+        throw new ValidationError("End date must be after start date");
+      }
+      return true;
+    }),
+  body("destinations")
+    .optional()
+    .trim()
+    .escape()
+    .isArray()
+    .withMessage("Destinations must be an array")
+    .custom((value) => {
+      return value.every((destination) => typeof destination === "string");
+    })
+    .withMessage("Destinations must be an array of strings"),
+  body("budget.total")
+    .optional()
+    .trim()
+    .escape()
+    .isNumeric()
+    .withMessage("Total budget must be a number"),
+  body("budget.expenses")
+    .optional()
+    .isArray()
+    .withMessage("Expenses must be an array"),
+  body("budget.expenses.*.name")
+    .optional()
+    .trim()
+    .escape()
+    .notEmpty()
+    .withMessage("Expense name is required"),
+  body("budget.expenses.*.amount")
+    .optional()
+    .trim()
+    .escape()
+    .isNumeric()
+    .withMessage("Expense amount must be a number"),
+  validate,
+];

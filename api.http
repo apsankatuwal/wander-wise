@@ -1,8 +1,8 @@
-@baseUrl = http://localhost:3000
-@userId = 6a43af60a011a4b3a30f06b6
-
-### TEST API
-GET {{baseUrl}}
+@baseUrl = https://6a83-2400-1a00-1b67-2848-44b1-3293-826e-bd5c.ngrok-free.app
+@userId = 6a7082510a8a38c08131920f
+@tripId =6a7083da0a8a38c081319211
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTcwODI1MTBhOGEzOGMwODEzMTkyMGYiLCJpYXQiOjE3ODU3NTg2MjcsImV4cCI6MTc4NTg0NTAyN30.HwuofP5UgxJawhPOiQZrx8-OwYbWhWRZdyhbxalADsk
+@tripTOken=
 
 ### CREATE USER
 POST {{baseUrl}}/users
@@ -10,8 +10,7 @@ Content-Type: application/json
 
 {
   "name": "John Doe",
-  "email": "john.doe4@example.com",
-  "email": "john.doe5@example.com",
+  "email": "johndoe4@example.com",
   "password": "test123"
 }
 
@@ -38,6 +37,75 @@ Content-Type: application/json
 
 {
   "name": "John Doe",
-  "email": "jane@example.com",
+  "email": "jane789@example.com",
   "password": "test123"
 }
+
+###LOGIN
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "jane789@example.com",
+  "password": "test123"
+}
+###CREATE TRIP
+POST {{baseUrl}}/trips
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "user": "{{userId}}",
+  "title": "Trip to the moon",
+  "startDate": "2025-12-15",
+  "endDate": "2025-12-16",
+  "budget": {
+    "total": 1000
+  },
+  "destinations": ["Moon", "Mars", "Jupiter"]
+}
+### GET ALL TRIPS
+GET {{baseUrl}}/trips
+Authorization: Bearer {{token}}
+
+### GET TRIP BY ID
+GET {{baseUrl}}/trips/{{tripId}}
+Authorization: Bearer {{token}}
+
+### UPDATE TRIP BY ID
+PATCH {{baseUrl}}/trips/{{tripId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Trip to the moon and back",
+  "budget": {
+    "total": 1500
+  }
+}
+
+### DELETE TRIP BY ID
+DELETE {{baseUrl}}/trips/{{tripId}}
+Authorization: Bearer {{token}}
+
+
+### CREATE BAGGAGE
+POST {{baseUrl}}/{{tripId}}/baggages
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Jacket"
+}
+
+### SEND TRIP INVITATION
+POST {{baseUrl}}/trips/{{tripId}}/invite
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "collaboratorEmails": [
+"apsankatuwal5@gmail.com"
+  ]
+}
+

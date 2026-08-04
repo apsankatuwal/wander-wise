@@ -9,7 +9,7 @@ export const register = async (data) => {
 }
 
 export const login = async (data) => {
-    const user = await find({ email: data.email });
+   const user = await findByEmail(data.email);
     if (!await compare(data.password, user.password)) {
         throw new UnauthorizedError("Invalid credentials.");
     }
