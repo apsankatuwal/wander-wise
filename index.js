@@ -6,6 +6,7 @@ import connectDB from "./config/database.js";
 // import dotenv from 'dotenv';
 // dotenv.config(); -> old approach to load .env variables
 
+import cors from "cors";
 import HANDLERS from "./handlers/index.js";
 import errorMiddleware from "./middlewares/error.js";
 import { authMiddleware } from "./middlewares/auth.js";
@@ -32,6 +33,7 @@ const helloWorldNew = (req, res) => {
 
 connectDB();
 
+app.use(cors());
 app.use(express.json());
 app.use(authMiddleware);
 app.use("/", HANDLERS);

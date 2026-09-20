@@ -2,7 +2,7 @@ import Trip from "../models/trip.js";
 import { NotFoundError } from "../errors/not-found.js";
 import { ConflictError } from "../errors/conflict.js";
 import { generateAccessToken } from "../config/jwt.js";
-import sendMail from "../utils/sendmail.js";
+import sendMail from "../utils/send-mail.js";
 
 export const create = async (data) => {
   const trip = await Trip.create(data);
@@ -49,7 +49,7 @@ export const invite = async (id, userId, collaboratorEmails) => {
 
   const token = await generateAccessToken({ tripId: id }, "1h");
 
-  const invitationLink = `${process.env.BASE_URL}/trips/${id}/invite/accept?token=${token}`;
+  const invitationLink = `${process.env.FRONTEND_URL}/trips/${id}/invite/accept?token=${token}`;
 
   await sendMail(collaboratorEmails.join(","), "Invitation to join a trip", {
     link: invitationLink,

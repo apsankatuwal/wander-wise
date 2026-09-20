@@ -1,8 +1,8 @@
 @baseUrl = https://6a83-2400-1a00-1b67-2848-44b1-3293-826e-bd5c.ngrok-free.app
 @userId = 6a7082510a8a38c08131920f
 @tripId =6a7083da0a8a38c081319211
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTcwODI1MTBhOGEzOGMwODEzMTkyMGYiLCJpYXQiOjE3ODU3NTg2MjcsImV4cCI6MTc4NTg0NTAyN30.HwuofP5UgxJawhPOiQZrx8-OwYbWhWRZdyhbxalADsk
-@tripTOken=
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTcwODI1MTBhOGEzOGMwODEzMTkyMGYiLCJpYXQiOjE3ODU5Mzc0NDQsImV4cCI6MTc4NjAyMzg0NH0.L69v9raZduImf5wtJ2h6YL6Zk8YQxL9OUaiStkxNxbY
+@tripToken=
 
 ### CREATE USER
 POST {{baseUrl}}/users
@@ -109,3 +109,4 @@ Authorization: Bearer {{token}}
   ]
 }
 
+### ACCEPT TRIP INVITATION

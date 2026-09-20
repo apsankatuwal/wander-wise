@@ -4,7 +4,7 @@ import { Schema, model } from "mongoose";
 const Baggageschema = new Schema(
     {
         
-        Name: {
+        name: {
             type: String,
             required: true,
             trim: true,

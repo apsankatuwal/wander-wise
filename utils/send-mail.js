@@ -18,12 +18,14 @@ const sendMail = async (to, subject, data) => {
         .replace("{{ endDate }}", data.endDate)
         .replace("{{ userName }}", data.name);
 
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
         from: process.env.SMTP_USER,
         to,
         subject,
         html
     });
+
+    console.log("Mail send result:", info);
 }
 
 export default sendMail;
