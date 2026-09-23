@@ -13,17 +13,20 @@ router.get("/image", async (req, res) => {
       });
     }
 
-    const image = await searchUnsplash(query);
+    const result = await searchUnsplash(query);
 
-    if (!image) {
+    if (!result) {
       return res.status(404).json({
         message: "No image found",
       });
     }
 
-    res.json(image);
+    res.json(result);
   } catch (error) {
-    console.error(error);
+    console.error(
+      "Unsplash error:",
+      error.response?.data || error.message
+    );
 
     res.status(500).json({
       message: "Failed to fetch destination image",

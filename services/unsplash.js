@@ -1,30 +1,31 @@
+import axios from "axios";
+
 const searchUnsplash = async (query) => {
-  const response = await fetch(
-    `https://api.unsplash.com/search/photos?query=${encodeURIComponent(
-      query
-    )}&per_page=1&orientation=landscape`,
+  const response = await axios.get(
+    "https://api.unsplash.com/search/photos",
     {
+      params: {
+        query,
+        per_page: 1,
+        orientation: "landscape",
+      },
       headers: {
         Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
+        "Accept-Version": "v1",
       },
     }
   );
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch image from Unsplash");
-  }
+  const photo = response.data.results?.[0];
 
-  const data = await response.json();
-
-  if (!data.results.length) {
+  if (!photo) {
     return null;
   }
-
-  const photo = data.results[0];
 
   return {
     image: photo.urls.regular,
     photographer: photo.user.name,
+    photographerUsername: photo.user.username,
     photographerUrl: photo.user.links.html,
     unsplashUrl: photo.links.html,
   };
