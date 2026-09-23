@@ -10,7 +10,13 @@ export const create = async (data) => {
 };
 
 export const index = async (userId) => {
-  const trips = await Trip.find({ user: userId });
+  const trips = await Trip.find({
+    $or: [
+      { user: userId },
+      { collaborators: userId },
+    ],
+  });
+
   return trips;
 };
 

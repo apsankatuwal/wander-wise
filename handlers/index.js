@@ -4,6 +4,7 @@ import AUTH_ROUTER from './auth.js';
 import TRIP_ROUTER from './trip.js';
 import BAGGAGE_ROUTER from './baggage.js';
 
+
 const router = Router();
 
 router.get('/', (req, res) => {
