@@ -1,7 +1,7 @@
 import Trip from "../models/trip.js";
 import { NotFoundError } from "../errors/not-found.js";
 import { ConflictError } from "../errors/conflict.js";
-import { generateAccessToken } from "../config/jwt.js";
+import { generateAccessToken, verifyAccessToken } from "../config/jwt.js";
 import sendMail from "../utils/send-mail.js";
 
 export const create = async (data) => {
@@ -21,10 +21,13 @@ export const index = async (userId) => {
 };
 
 export const find = async (id, userId) => {
-  const trip = await Trip.findOne({ _id: id, user: userId }).populate(
-    "user",
-    "name",
-  );
+  const trip = await Trip.findOne({
+    _id: id,
+    $or: [
+      { user: userId },
+      { collaborators: userId },
+    ],
+  }).populate("user", "name");
   if (!trip) throw new NotFoundError("Trip not found");
   return trip;
 };
